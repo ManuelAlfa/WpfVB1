@@ -16,17 +16,20 @@ Class MainWindow
 
         _PersonajesController = New PersonajesController()
 
-        Dim results As List(Of PersonajeDTO) = New List(Of PersonajeDTO)
-
-        AccessTheWebAsync()
+        Dim results As List(Of PersonajeDTO) = New List(Of PersonajeDTO)()
 
 
+        AccessTheWebAsync(results)
 
 
-        LoadCollectionData()
+
+
+
+
+        '   LoadCollectionData()
     End Sub
 
-    Async Function AccessTheWebAsync() As Task(Of List(Of PersonajeDTO))
+    Async Function AccessTheWebAsync(results As List(Of PersonajeDTO)) As Task(Of List(Of PersonajeDTO))
 
 
         MyEnvoltorio.CreateMimap()
@@ -35,26 +38,22 @@ Class MainWindow
         Dim lista1 As List(Of Personaje) = lista.results
 
 
-        Dim oPersonaje As Personaje
+        'Dim oPersonaje As Personaje
 
-        For index = 1 To 10
-            oPersonaje = New Personaje
-            oPersonaje = lista.results(index)
-            lista1.Add(oPersonaje)
-        Next
+        'For index = 1 To 10
+        '    oPersonaje = New Personaje
+        '    oPersonaje = lista.results(index)
+        '    lista1.Add(oPersonaje)
+        'Next
 
 
 
-        Dim results As List(Of PersonajeDTO) = New List(Of PersonajeDTO)
+        'Dim results As List(Of PersonajeDTO) = New List(Of PersonajeDTO)
 
-        ' results = oMapper.Map(PagedList(Of Personaje), PagedList(Of PersonajeDTO))(lista)
         results = oMapper.Map(Of List(Of Personaje), List(Of PersonajeDTO))(lista1)
-        ' results = oMapper.Map(PersonajeDTO)(lista)
 
-        '  oMapper.Map(lista, (List(Of PersonajeDTO)results))
-
-        misDatos.ItemsSource = results
         'LoadCollectionData();
+        misDatos.ItemsSource = results
 
         Return results
 
